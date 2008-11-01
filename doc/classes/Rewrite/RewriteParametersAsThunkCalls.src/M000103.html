@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>process (Rewrite::RewriteParametersAsThunkCalls)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/rewrite/evaluation_strategies.rb, line 26</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">process</span>(<span class="ruby-identifier">sexp</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Expected a proc&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">sexp</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">:proc</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Expected a proc with arity &gt;= 1&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sexp</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">arguments</span> = <span class="ruby-identifier">sexp</span>[<span class="ruby-value">1</span>]
+      <span class="ruby-identifier">variable_symbols</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">:dasgn</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">:dasgn_curr</span>
+        [<span class="ruby-identifier">arguments</span>[<span class="ruby-value">1</span>]]
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">:masgn</span>
+        <span class="ruby-identifier">arguments</span>[<span class="ruby-value">1</span>][<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">pair</span><span class="ruby-operator">|</span> <span class="ruby-identifier">pair</span>[<span class="ruby-value">1</span>] }
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;don't know how to extract paramater names from #{arguments}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:iter</span>,
+        <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:fcall</span>, <span class="ruby-identifier">:lambda</span>),
+        <span class="ruby-identifier">sexp</span>(<span class="ruby-identifier">arguments</span>),
+        <span class="ruby-identifier">variable_symbols</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-identifier">sexp</span>[<span class="ruby-value">2</span>]) { <span class="ruby-operator">|</span><span class="ruby-identifier">result</span>, <span class="ruby-identifier">variable</span><span class="ruby-operator">|</span>
+          <span class="ruby-constant">VariableRewriter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">variable</span>, <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:call</span>, <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:dvar</span>, <span class="ruby-identifier">variable</span>), <span class="ruby-identifier">:call</span>)).<span class="ruby-identifier">process</span>(<span class="ruby-identifier">eval</span>(<span class="ruby-identifier">result</span>.<span class="ruby-identifier">inspect</span>))
+        }
+      )
+      
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

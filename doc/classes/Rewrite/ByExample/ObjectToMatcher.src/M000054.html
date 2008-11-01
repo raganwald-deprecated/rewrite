@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>convert (Rewrite::ByExample::ObjectToMatcher)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/rewrite/by_example/object_to_matcher.rb, line 104</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert</span>(<span class="ruby-identifier">o</span>)
+        <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;***** #{o.to_s}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">debug</span>
+        <span class="ruby-identifier">matcher</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Sequence</span>
+          <span class="ruby-identifier">o</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">EntityMatcher</span>
+          <span class="ruby-identifier">o</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Symbol</span>
+          <span class="ruby-identifier">from_symbol</span>(<span class="ruby-identifier">o</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-constant">NilEntity</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Array</span>
+          <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;#{o.inspect}.kind_of? Array&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">debug</span>
+          <span class="ruby-identifier">from_sexp</span>(<span class="ruby-identifier">o</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Don't know how to handle #{o.inspect}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;returning #{matcher.to_s} given #{o.to_s}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">debug</span>
+        <span class="ruby-identifier">matcher</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

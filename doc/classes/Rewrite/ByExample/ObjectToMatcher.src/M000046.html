@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>symbol_like_expression_matcher (Rewrite::ByExample::ObjectToMatcher)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/rewrite/by_example/object_to_matcher.rb, line 51</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">symbol_like_expression_matcher</span>
+          <span class="ruby-ivar">@symbol_like_expression_matcher</span> <span class="ruby-operator">||=</span> 
+            <span class="ruby-identifier">returning</span>(
+              <span class="ruby-identifier">quietly</span> <span class="ruby-keyword kw">do</span>
+                <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">from_object</span>(
+                  <span class="ruby-identifier">s</span>(
+                    <span class="ruby-constant">UnionOfEntitiesSequence</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:gvar</span>, <span class="ruby-identifier">:dvar</span>, <span class="ruby-identifier">:vcall</span>, <span class="ruby-identifier">:lcall</span>, <span class="ruby-identifier">:lit</span>, <span class="ruby-identifier">:dasgn_curr</span>),
+                    <span class="ruby-constant">Bind</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:variable_symbol</span>, <span class="ruby-constant">AnyEntity</span>.<span class="ruby-identifier">new</span>)
+                  )
+                ) 
+              <span class="ruby-keyword kw">end</span>
+            ) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">slem</span><span class="ruby-operator">|</span>
+              <span class="ruby-identifier">p</span> <span class="ruby-identifier">slem</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">debug</span>
+            <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

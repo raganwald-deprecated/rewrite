@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Rewrite::ByExample::Sequence</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Rewrite::ByExample::Sequence</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/rewrite/by_example/sequence_rb.html">
+                lib/rewrite/by_example/sequence.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Base class fo all classes that match one or more entities within a list.
+</p>
+<p>
+Includes some backtracking magic to handle cases isomorphic to /.*foo/
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000073">fold</a>&nbsp;&nbsp;
+      <a href="#M000072">length_range</a>&nbsp;&nbsp;
+      <a href="#M000071">unfolders_by_length</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000073" class="method-detail">
+        <a name="M000073"></a>
+
+        <div class="method-heading">
+          <a href="Sequence.src/M000073.html" target="Code" class="method-signature"
+            onclick="popupCode('Sequence.src/M000073.html');return false;">
+          <span class="method-name">fold</span><span class="method-args">(enum_of_bindings)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000072" class="method-detail">
+        <a name="M000072"></a>
+
+        <div class="method-heading">
+          <a href="Sequence.src/M000072.html" target="Code" class="method-signature"
+            onclick="popupCode('Sequence.src/M000072.html');return false;">
+          <span class="method-name">length_range</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Answer a range of possible lengths
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+          <a href="Sequence.src/M000071.html" target="Code" class="method-signature"
+            onclick="popupCode('Sequence.src/M000071.html');return false;">
+          <span class="method-name">unfolders_by_length</span><span class="method-args">(length)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+unfolders takes a length and answers a (possible empty) Enumerable of
+lambdas, each of which has the method call(array) and returning an unfold.
+</p>
+<p>
+Now obviously this means that there are three different ways to represent
+alternation. First, if a sequence matches two things of different lengths,
+like A | AA, it returns A for <a
+href="Sequence.html#M000071">unfolders_by_length</a>(1) and AA for <a
+href="Sequence.html#M000071">unfolders_by_length</a>(2). However, if a
+sequence matches two things of the same length, tehre are two different
+ways to represent that.
+</p>
+<p>
+For example, if a sequence matches A | B, it can do either of:
+</p>
+<p>
+<a href="Sequence.html#M000071">unfolders_by_length</a>(1) =&gt;
+</p>
+<pre>
+  [ lambda { |arr| A =~ arr.first }, lambda { |arr| B =~ arr.first } ]
+</pre>
+<p>
+or:
+</p>
+<p>
+<a href="Sequence.html#M000071">unfolders_by_length</a>(1) =&gt;
+</p>
+<pre>
+  [ lambda { |arr| A =~ arr.first || B =~ arr.first } ]
+</pre>
+<p>
+Note the difference: The first example returns two lambdas, one matching A
+and the other matching B. the second example returns a single lambda
+matching A or B.
+</p>
+<p>
+When would you use one over the other? The first example is to be used when
+you wish to support backtracking. The second example is to be used when you
+do not wish to support backtracking.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>unfold (Rewrite::ByExample::SexpEntity)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/rewrite/by_example/sexp_entity.rb, line 25</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unfold</span> (<span class="ruby-identifier">sexp</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sexp</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Array</span>
+          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">sequence</span>.<span class="ruby-identifier">unfolders_by_length</span>(<span class="ruby-identifier">sexp</span>.<span class="ruby-identifier">length</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">unfolder</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">unfolded</span> = <span class="ruby-identifier">unfolder</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">sexp</span>)
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">unfolded</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">unfolded</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">predicate</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">predicate</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">unfolded</span>))
+          }
+          <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

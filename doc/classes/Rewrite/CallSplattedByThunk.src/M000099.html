@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>process_fcall (Rewrite::CallSplattedByThunk)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/rewrite/evaluation_strategies.rb, line 124</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">process_fcall</span>(<span class="ruby-identifier">exp</span>)
+      <span class="ruby-identifier">qua</span> = <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">dup</span>
+      <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">shift</span>
+      <span class="ruby-identifier">name</span> = <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">shift</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@functions_to_splat_thunkify</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">name</span>
+        <span class="ruby-identifier">thunked</span> = <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:call</span>, <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:dvar</span>, <span class="ruby-identifier">name</span>), <span class="ruby-identifier">:call</span>)
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">empty?</span>
+          <span class="ruby-identifier">arguments</span> = <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">shift</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Do not understand arguments #{arguments}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">:array</span>
+          <span class="ruby-identifier">thunked</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:array</span>,
+            <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:call</span>,
+              <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:colon2</span>, <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:colon2</span>, <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:const</span>, <span class="ruby-identifier">:Rewrite</span>), <span class="ruby-identifier">:CallSplattedByThunk</span>), <span class="ruby-identifier">:Parameters</span>),
+              <span class="ruby-identifier">:new</span>,
+              <span class="ruby-identifier">arguments</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">inject</span>(<span class="ruby-identifier">s</span>(<span class="ruby-identifier">:array</span>)) { <span class="ruby-operator">|</span><span class="ruby-identifier">arr</span>, <span class="ruby-identifier">arg</span><span class="ruby-operator">|</span> 
+                <span class="ruby-identifier">arr</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:iter</span>, <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:fcall</span>, <span class="ruby-identifier">:lambda</span>), <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">process</span>(<span class="ruby-identifier">arg</span>)) 
+              }
+            )
+          )
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">thunked</span> = <span class="ruby-identifier">s</span>(<span class="ruby-identifier">:fcall</span>, <span class="ruby-identifier">name</span>) <span class="ruby-comment cmt"># :fcall, name_of_the_function</span>
+        <span class="ruby-identifier">thunked</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">process</span>(<span class="ruby-identifier">exp</span>.<span class="ruby-identifier">shift</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">thunked</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

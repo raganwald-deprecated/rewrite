@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Rewrite::Prelude</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Rewrite::Prelude</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/rewrite/prelude_rb.html">
+                lib/rewrite/prelude.rb
+                </a>
+        <br />
+                <a href="../../files/lib/rewrite/prelude/andand_rb.html">
+                lib/rewrite/prelude/andand.rb
+                </a>
+        <br />
+                <a href="../../files/lib/rewrite/prelude/called_by_name_rb.html">
+                lib/rewrite/prelude/called_by_name.rb
+                </a>
+        <br />
+                <a href="../../files/lib/rewrite/prelude/please_rb.html">
+                lib/rewrite/prelude/please.rb
+                </a>
+        <br />
+                <a href="../../files/lib/rewrite/prelude/try_rb.html">
+                lib/rewrite/prelude/try.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Module containing standard rewriting features. For more information about
+each feature, go directly to the class, such as <a
+href="Prelude/Andand.html">Andand</a> or <a
+href="Prelude/CalledByName.html">CalledByName</a>. If you <tt>include <a
+href="Prelude.html">Rewrite::Prelude</a></tt>, you get some methods as
+sugar. For a list of those methods, go to <a
+href="Prelude/InstanceMethods.html">InstanceMethods</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Prelude/InstanceMethods.html" class="link">Rewrite::Prelude::InstanceMethods</a><br />
+Class <a href="Prelude/Andand.html" class="link">Rewrite::Prelude::Andand</a><br />
+Class <a href="Prelude/CalledByName.html" class="link">Rewrite::Prelude::CalledByName</a><br />
+Class <a href="Prelude/Please.html" class="link">Rewrite::Prelude::Please</a><br />
+Class <a href="Prelude/Try.html" class="link">Rewrite::Prelude::Try</a><br />
+
+    </div>
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

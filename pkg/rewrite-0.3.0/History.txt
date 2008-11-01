@@ -1,0 +1,14 @@
+== 0.0.1 2008-06-15
+
+* 1 tiny enhancement:
+  * Initial pre-release of a preview of an alpha of an undocumented proof-of-concept
+* 2 tiny enhancement:
+  * Got the manifest right
+* 3 tiny enhancement:
+  * added Please to the Prelude
+* 4 tiny enhancement:
+  * added Try to the Prelude
+* 5 minor enhancement:
+  * called_by_name
+* 6 minor enhancements:
+  * ByExample and Unhygienic rewriting
