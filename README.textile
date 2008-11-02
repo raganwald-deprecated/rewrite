@@ -167,18 +167,15 @@ h2. Current Status
 
 This is just a proof-of-concept at the moment. Writing new features is torturous, so I'm not going to suggest you write your own until I figure out how to make that easy.
 
-h2. How to submit patches
-
-Read the "8 steps for fixing other people's code":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/ and for section "8b: Submit patch to Google Groups":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups, use the Google Group above.
-
-The trunk repository is <code>svn://rubyforge.org/var/svn/rewrite/trunk</code> for anonymous access.
-
 h3. Build and test instructions
 
 <pre>cd rewrite
 rake test
 rake install_gem</pre>
 
+h2. More background
+
+"An interview where I discussed rewrite":http://www.infoq.com/interviews/Rewrite-Reginald-Braithwaite and "My presentation slides from RubyFringe":http://www.flickr.com/photos/raganwald/sets/72157606272767656/.
 
 h2. License
 
