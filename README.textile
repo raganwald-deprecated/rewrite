@@ -57,7 +57,7 @@ Rewrite restricts things like andand or try to your code and your code alone. Su
 
 h2. called_by_name
 
-See "Macros, Hygiene, and Call By Name in Ruby":http://github.com/raganwald/rewrite/tree/master/called_by_name.markdown for details, more docs to come presently...
+See "Macros, Hygiene, and Call By Name in Ruby":http://github.com/raganwald/rewrite/tree/master/called_by_name.markdown and "With, Unhygienic, and Call-by-Name Semantics in Rewrite":http://github.com/raganwald/homoiconic/tree/master/2008-11-03/with_unhygienic_and_call-by-name_semantics_in_rewrite.markdown.
 
 h2. Unhygienic rewriting
 
