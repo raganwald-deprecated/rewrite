@@ -1,4 +1,0 @@
-
-For more information on rewrite, see http://rewrite.rubyforge.org
-
-

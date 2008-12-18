@@ -36,7 +36,7 @@ module Rewrite
     def subprocess (something)
       process(something) if something
     end
-    
+
     def process_dvar(exp)
       exp.shift
       variable = exp.shift
@@ -44,6 +44,16 @@ module Rewrite
         replacement_sexp # not a deep copy. problem? replace with a block call??
       else
         s(:dvar, variable)
+      end
+    end
+    
+    def process_lvar(exp)
+      exp.shift
+      variable = exp.shift
+      if @symbol == variable
+        replacement_sexp # not a deep copy. problem? replace with a block call??
+      else
+        s(:lvar, variable)
       end
     end
     
@@ -57,11 +67,13 @@ module Rewrite
         []
       elsif params_exp.first == :dasgn || params_exp.first == :dasgn_curr
         [ params_exp[1] ]
+      elsif params_exp.first == :lasgn || params_exp.first == :lasgn_curr
+        [ params_exp[1] ]
       elsif params_exp.first == :masgn
         raise "Can't handle  #{original.inspect}" unless params_exp[1].first == :array
         params_exp[1][1..-1].map { |assignment| assignment[1] }
       else
-        raise "Can't handle #{original.inspect}"
+        raise "Can't handle #{original.inspect}, expected #{params_exp} to resemeble [:dasgn, ...] or [:masgn, ...]"
       end
       if params.include? @symbol
         s(:iter, subprocess(callee_expr), params_exp, block_body) # we're DONE
@@ -82,7 +94,7 @@ module Rewrite
     
     def process(sexp)
       list_of_variables().inject(sexp) { |result, variable| 
-        VariableRewriter.new(variable, s(:call, s(:dvar, variable), :call)).process(result)
+        VariableRewriter.new(variable, s(:call, s(:lvar, variable), :call, s(:arglist))).process(result)
       }
     end
     

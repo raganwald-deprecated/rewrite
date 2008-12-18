@@ -21,7 +21,9 @@ module Rewrite
         end
         sexp_processor.process(sexp)
       }
+      p rewritten.inspect
       rewritten = eval(rewritten.to_s) # i don't know why i need this!!
+      p rewritten.inspect
       Ruby2Ruby.new.process(rewritten)
     end
       

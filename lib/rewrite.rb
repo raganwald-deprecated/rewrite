@@ -2,7 +2,9 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
   
 require 'rubygems'
+require 'parse_tree'
 require 'ruby2ruby'
+require 'parse_tree_extensions'
 
 Dir["#{File.dirname(__FILE__)}/rewrite/*.rb"].each do |element|
    require element
