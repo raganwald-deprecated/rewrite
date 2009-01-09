@@ -2,6 +2,9 @@ h1. rewrite
 
 h1. &#x2192; 'rewrite'
 
+h2. Breaking News
+
+The rewrite gem is not in active development at this time. Instead, I am working on "RewrteRails":http://github.com/raganwald/rewrite_rails. RewriteRails brings Rewrite's functionality to Ruby on Rails projects.
 
 h2. What
 
