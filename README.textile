@@ -6,7 +6,7 @@ h2. Current Status
 
 The rewrite gem is not in active development at this time. "rewrite" was an experiment in meta-programming Ruby without cluttering up core classes in the global namespace. Some of the rationale is explained in this talk: <a href="http://www.infoq.com/presentations/braithwaite-rewrite-ruby">Ruby.rewrite(Ruby)</a>. Following this gem, I worked on "rewrite_rails":http://github.com/raganwald/rewrite_rails, a plugin for adding meta-programming to Rails projects without monkey-patching.
 
-For more information, read "A Difficult Distraction":https://github.com/raganwald/homoiconic/blob/master/2010/02/difficult_distraction.md#readme and "Why I Write Concept Software":https://github.com/raganwald/homoiconic/blob/master/2010/09/concept.md#readme.
+For more information, read "A Difficult Distraction":https://github.com/raganwald/homoiconic/blob/master/2010/02/difficult_distraction.md#readme and "Why I Write Concept Software":https://github.com/raganwald/homoiconic/blob/master/2010/09/concept.md#readme.  Also, "Forgotten Detroit]":http://www.forgottendetroit.com/ has more interesting pictures like this.
 
 h2. What
 
@@ -28,23 +28,23 @@ include Rewrite::Prelude
 
 <pre syntax="ruby">
 with(andand) do
-	...
-	first_name = Person.find_by_last_name('Braithwaite').andand.first_name
-	...
+  ...
+  first_name = Person.find_by_last_name('Braithwaite').andand.first_name
+  ...
 end
 </pre>The special magic here is that instead of opening up the Object and Nil classes to add _#andand_, Rewrite rewrites the ruby code inside the do/end block so that it looks roughly like this:
 
 <pre syntax="ruby">
 with(andand) do
-	...
-	first_name = lambda { |__1234567__|
-		if __1234567__.nil?
-			nil
-		else
-			__1234567__.first_name
-		end
-	}.call(Person.find_by_last_name('Braithwaite'))
-	...
+  ...
+  first_name = lambda { |__1234567__|
+    if __1234567__.nil?
+      nil
+    else
+      __1234567__.first_name
+    end
+  }.call(Person.find_by_last_name('Braithwaite'))
+  ...
 end
 </pre>That's a big win because you can use the metaprogramming features you want without worrying that you are breaking anybody else's code. If you use an implementation of #andand that relies on opening the Object and Nil classes, how do you know you aren't (a) breaking some other code somewhere else, or (b) exposing your code to being broken if something else changes the #andand methods?
 
@@ -81,9 +81,9 @@ andand = Rewrite::ByExample::Unhygienic.
   }
 
 with (andand) do
-	# ...
-	foo.andand.bar(:bash, blitz(5))
-	# ...
+  # ...
+  foo.andand.bar(:bash, blitz(5))
+  # ...
 end
 </pre>
 
@@ -148,19 +148,19 @@ include Rewrite::Prelude
 
 <pre syntax="ruby">
 class Person
-	include Rewrite::With
-	include Rewrite::Prelude
-	
-	...
+  include Rewrite::With
+  include Rewrite::Prelude
+
+  ...
 end
 </pre>Or you can go 100% safe and avoid adding anything to existing namespaces:
 
 <pre syntax="ruby">
 class Person
 
-	Rewrite.with(Rewrite::Prelude::Andand.new) do
-	   ...
-	end
+  Rewrite.with(Rewrite::Prelude::Andand.new) do
+     ...
+  end
 end
 </pre>It's entirely up to you.
 
@@ -184,7 +184,7 @@ h2. More background
 
 h2. License
 
-This code is free to use under the terms of the MIT license. 
+This code is free to use under the terms of the MIT license.
 
 h2. Contact
 
